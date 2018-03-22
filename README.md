@@ -6,7 +6,7 @@ C++ framework for Embedded systems.
 
 Сервис для подсчета количества кликов по кнопке. Crow Web Server отдает HTML страницу с кнопкой и количеством кликов.  
 
-WEB демо доступно по [ссылке](link).
+WEB демо доступно по [ссылке](http://159.65.201.37:8080).
 
 ## Requirenments
  - C++ compiler with good C++11 support
