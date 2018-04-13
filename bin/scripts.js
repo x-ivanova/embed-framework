@@ -1,109 +1,72 @@
-/*$('#button').click(function(){
+var BASE_URL = "http://0.0.0.0:8080"
+
+
+function getAllElementsByAttribute(atrribute){
+    var massiv = [];
+    $('[' + atrribute +']').each(function(index, value) {
+        massiv.push($(this));
+    });
+    return massiv;
+}
+
+function getRequest(){
+    var result;
     $.ajax({
-        url: 'http://0.0.0.0:8080/make/',
+        url: BASE_URL + '/get/',
+        async: false,
         type: 'GET',
-        success: function(results) { 
-            $('#resp-numb').html(results);
+        success:function(data) {
+            result = data;
         }
-    });
-});
+    })
+    return result;
+}
 
-$(document).ready(function(){
-	$.ajax({
-        url: 'http://0.0.0.0:8080/get/',
-        type: 'GET',
-        success: function(results) { 
-            $('#resp-numb').html(results);
+function onResponse(x, string) {
+    eval(string)
+}
+
+function clickHandler(){
+    chElements = getAllElementsByAttribute('clickable');
+    for (var i = 0; i < chElements.length; i ++){
+        chElements[i].click(function(x) {
+            return function() {
+            $.ajax({
+                url: BASE_URL + '/' + chElements[x].attr('handler') + '/',
+                type: 'GET',
+                success: function (results) {
+                    if (chElements[x].attr('onResponse')) {
+                        onResponse(results, chElements[x].attr('onResponse'));
+                    }
+                }
+            });
         }
-    });
-});
-
-$('#checkbox').on('change', function(){ 
-        $.ajax({
-        url: 'http://0.0.0.0:8080/check/',
-        type: 'GET',
-        success: function(results) { 
-            if (results == 0) {
-                $('#resp-check').html('False');
-            } else {
-                $('#resp-check').html('True');
-            }
-            
-        }
-    });
-    
-})
-
-$('#text').click(function(){
-    $.ajax({
-        url: 'http://0.0.0.0:8080/text/',
-        type: 'GET',
-        success: function(results) { 
-            $('#resp-text').html(results);
-        }
-    });
-}); */
-
-// $(document).ready(function() {
-//     $('[clickhandler]').each(function() {
-//         var test = $('[clickhandler]').attr("clickhandler");
-
-//         $('[clickhandler]').click(function() {
-//             var url = 'http://0.0.0.0:8080/make/?count=' + test;
-//             $("#resp-numb").text(test);
-//             $.ajax({
-//                 url: url,
-//                 type: 'GET',
-//                 success: function(results) {
-//                     $('#resp-text').html(results);
-//                 }
-//             });
-//         });
-//     });
-// });
-
-function getAllElementsWithAttribute(attribute)
-{
-  var matchingElements = [];
-  var allElements = document.getElementsByTagName('button');
-  for (var i = 0, n = allElements.length; i < n; i++)
-  {
-    if (allElements[i].getAttribute(attribute) !== null)
-    {
-      matchingElements.push(allElements[i]);
+        }(i));
     }
-  }
-  return matchingElements;
+}
+
+function check() {
+    var checkAttr = $('input[type="checkbox"]').attr('handler');
+    if (js[checkAttr] == 1) {
+        $('input[type="checkbox"]').attr("checked", "checked");
+    }
+    var selectkAttr = $('input[type="range"]').attr('handler');
+    $('input[type="range"]').attr("value", js[selectkAttr]);
 }
 
 
-$(document).ready(function() {
-    $.ajax({
-        url: 'http://0.0.0.0:8080/get/',
-        type: 'GET',
-        success: function(results) { 
-            $('#resp-numb').html(results);
-            $('#reset').attr("clickhandler",-results);
-        }
-    });
-    mas = getAllElementsWithAttribute('clickHandler');
 
-    for(var i = 0; i < mas.length; i++){
-        var something = mas[i].getAttribute('clickHandler');
-        var k = [];
-        k[i] = '[clickHandler="' + something + '"]';
-        console.log(something, k[i]);
-        $(k[i]).click(function(x){
-            return function (){
-            $.ajax({
-                url: 'http://0.0.0.0:8080/make/?count=' + mas[x].getAttribute('clickHandler'),
-                type: 'GET',
-                success: function(results) { 
-                    $('#resp-numb').html(results);
-                }
-            });
-        };
-    }(i));
-
+function update(handler){
+    js = getRequest();
+    orElements = getAllElementsByAttribute('onResponse');
+    for (var i = 0; i < orElements.length; i++){
+        onResponseAttribute = orElements[i].attr('onResponse');
+        onResponse(js[orElements[i].attr(handler)], onResponseAttribute);
     }
+    check();
+}
+
+$(document).ready(function() {
+    update('handler');
+    clickHandler();
 });

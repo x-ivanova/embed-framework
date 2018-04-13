@@ -1,17 +1,50 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Ivanova</title>
-	<link href="style.css" rel="stylesheet">
-</head>
-<body>
-    	<button clickHandler="-5"> -5 </button>
-    	<button clickHandler="5"> +5 </button>
-    	<div class="response">Ваше число = <span id="resp-numb"></span></div>
-
-
-	<script src="http://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
-	<script src="scripts.js" type="text/javascript"></script>
-</body>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+      <title>Ivanova</title>
+      <link href="style.css" rel="stylesheet">
+   </head>
+   <body>
+      <div class="container">
+         <div class="wrapper">
+            <div class="col-2">
+               <div class="item">
+                  <button class="embedded-btn" handler = "count" onResponse="$('#resp-btn').text(x);" clickable>Light ON</button>
+                  <div class="response">Вы нажали на кнопку <span id="resp-btn"></span> раз!</div>
+               </div>
+            </div>
+            <div class="col-2">
+               <div class="item">
+				    <input type="checkbox" id="myCheck" handler="checkBox" class="config" onResponse="$('#resp-check').text(x);" clickable />
+				    <label for="myCheck" class="embedded-check"></label>
+                  <div class="response">Значение чекбокса <span id="resp-check"></span></div>
+               </div>
+            </div>
+            <div class="col-2">
+               <div class="item">
+                  <input class="config embedded-text" handler = 'editBox' onResponse="$('#resp-text').text(x);" type="text">
+                  <div class="response">Вы ввели этот текст:" <span id="resp-text"></span> "</div>
+               </div>
+            </div>
+            <div class="col-2">
+               <div class="item">
+                  <input class="config embedded-range" handler = 'slider' type="range" min="0" max="100" step="1" value="" onResponse="$('#resp-range').text(x);">
+                  <div class="response">Музыка играет на <span id="resp-range">  </span> <span> % </span></div>
+               </div>
+            </div>
+            <div class="col-2">
+               <div class="item">
+                  <select class="config embedded-select" handler = 'select' onResponse="$('#resp-select').text(x);">
+                     <option>Синий</option>
+                     <option>Зелёный</option>
+                  </select>
+                  <div class="response">Вы выбрали <span id="resp-select">синий</span> цвет</div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script src="http://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
+      <script src="scripts.js" type="text/javascript"></script>
+   </body>
 </html>
