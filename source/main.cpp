@@ -1,71 +1,63 @@
 #include "crow.h"
-#include <string>
+#include "user.cpp"
 
 using namespace std;
 
 int main()
 {
-    int count = 0;
-    bool checkBox = 0;
-    int slider = 75;
-    string editBox = "Пустой текст.";
-    string select = "Красный";
+    AutoWaterSystem autoWaterSystem = AutoWaterSystem();
 
-    cout << select;
+    string passMessage = "No auth. Use /?password=password";
+    string errMessage = "Wrong password";
+    string setMessage = "Example: Use /set/?temperature=20";
 
     crow::SimpleApp app;
     crow::mustache::set_base(".");
 
     CROW_ROUTE(app, "/get/")
-            ([&count, &checkBox, &editBox, &select, &slider](){
+            ([&autoWaterSystem](){
                 crow::json::wvalue response;
-                response["count"] = count;
-                response["checkBox"] = int(checkBox);
-                response["editBox"] = editBox;
-                response["select"] = select;
-                response["slider"] = slider;
+                response["power"] = int(autoWaterSystem.isPower());
+                response["password"] = autoWaterSystem.getPassword();
+                response["plant"] = autoWaterSystem.getPlant();
+                response["temperature"] = autoWaterSystem.getTemperature();
                 return response;
             });
 
     CROW_ROUTE(app, "/set/")
-            ([&count, &checkBox, &editBox, &select, &slider](const crow::request& req){
-                if(req.url_params.get("count") != nullptr) {
-                    int tmp = boost::lexical_cast<int>(req.url_params.get("count"));
-                    count = tmp;
+            ([&setMessage, &autoWaterSystem](const crow::request& req){
+                if(req.url_params.get("password") != nullptr) {
+                    string tmp = boost::lexical_cast<string>(req.url_params.get("password"));
+                    return autoWaterSystem.changePassword(tmp);
                 }
-                if(req.url_params.get("checkBox") != nullptr) {
-                    bool tmp = boost::lexical_cast<bool>(req.url_params.get("checkBox"));
-                    checkBox = tmp;
+                if(req.url_params.get("plant") != nullptr) {
+                    string tmp = boost::lexical_cast<string>(req.url_params.get("plant"));
+                    return autoWaterSystem.changePlant(tmp);
                 }
-                if(req.url_params.get("editBox") != nullptr) {
-                    string tmp = boost::lexical_cast<string>(req.url_params.get("editBox"));
-                    editBox = tmp;
+                if(req.url_params.get("temperature") != nullptr) {
+                    int tmp = boost::lexical_cast<int>(req.url_params.get("temperature"));
+                    return autoWaterSystem.changeTemperature(tmp);
                 }
-                if(req.url_params.get("select") != nullptr) {
-                    string tmp = boost::lexical_cast<string>(req.url_params.get("select"));
-                    select = tmp;
-                }
-                if(req.url_params.get("slider") != nullptr) {
-                    int tmp = boost::lexical_cast<int>(req.url_params.get("slider"));
-                    slider = tmp;
-                }
-                return "OK";
+                return setMessage;
             });
 
     CROW_ROUTE(app, "/")
-            ([]{
-                return crow::mustache::load("index.html").render();
+            ([&errMessage, &passMessage, &autoWaterSystem](const crow::request &req){
+                if(req.url_params.get("password") != nullptr) {
+                    string tmp = boost::lexical_cast<string>(req.url_params.get("password"));
+                    return (tmp == autoWaterSystem.getPassword())? crow::mustache::load("index.html").render() : errMessage;
+                }
+                return passMessage;
             });
 
-    CROW_ROUTE(app, "/count/")
-            ([&count]{
-                return std::to_string(++count);
+    CROW_ROUTE(app, "/shot/")
+            ([&autoWaterSystem]{
+                return autoWaterSystem.make_shot();
             });
 
-    CROW_ROUTE(app, "/checkBox/")
-            ([&checkBox]{
-                checkBox = !checkBox;
-                return std::to_string(checkBox);
+    CROW_ROUTE(app, "/power/")
+            ([&autoWaterSystem]{
+                return (autoWaterSystem.isPower())?autoWaterSystem.turnOff():autoWaterSystem.turnOn();
             });
 
 

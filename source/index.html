@@ -6,45 +6,212 @@
       <link href="style.css" rel="stylesheet">
    </head>
    <body>
-      <div class="container">
-         <div class="wrapper">
-            <div class="col-2">
-               <div class="item">
-                  <button class="embedded-btn" handler = "count" onResponse="$('#resp-btn').text(x);" clickable>Light ON</button>
-                  <div class="response">Вы нажали на кнопку <span id="resp-btn"></span> раз!</div>
+      <div class="header-section">
+         <div class="container">
+            <h1>JS framework for embedded systems</h1>
+         </div>
+      </div>
+      <section>
+         <div class="container">
+            <div class="wrapper">
+               <div class="col-4">
+                  <div class="item">
+                     <h2></h2>
+                     <button class="embedded-btn" handler = "shot" onResponse="$('#resp-btn').text(x);" clickable>Сделать снимок!</button>
+                     <div class="response"><span id="resp-btn"></span></div>
+                  </div>
                </div>
-            </div>
-            <div class="col-2">
-               <div class="item">
-				    <input type="checkbox" id="myCheck" handler="checkBox" class="config" onResponse="$('#resp-check').text(x);" clickable />
-				    <label for="myCheck" class="embedded-check"></label>
-                  <div class="response">Значение чекбокса <span id="resp-check"></span></div>
-               </div>
-            </div>
-            <div class="col-2">
-               <div class="item">
-                  <input class="config embedded-text" handler = 'editBox' onResponse="$('#resp-text').text(x);" type="text">
-                  <div class="response">Вы ввели этот текст:" <span id="resp-text"></span> "</div>
-               </div>
-            </div>
-            <div class="col-2">
-               <div class="item">
-                  <input class="config embedded-range" handler = 'slider' type="range" min="0" max="100" step="1" value="" onResponse="$('#resp-range').text(x);">
-                  <div class="response">Музыка играет на <span id="resp-range">  </span> <span> % </span></div>
-               </div>
-            </div>
-            <div class="col-2">
-               <div class="item">
-                  <select class="config embedded-select" handler = 'select' onResponse="$('#resp-select').text(x);">
-                     <option>Синий</option>
-                     <option>Зелёный</option>
-                  </select>
-                  <div class="response">Вы выбрали <span id="resp-select">синий</span> цвет</div>
+               <div class="col-8">
+                  <div class="item">
+                     <h2>BUTTON</h2>
+                     <div class="line"></div>
+                     <p>Для использования кнопки в своём проекте вам необходимо на своей странице разместить тег <span class="tag">&lt;button&gt;</span> со следующими атрибутами:</p>
+                     <ul>
+                        <li>
+                           <span class="attr">handler</span> - в данном атрибуте указывается путь, по которому будет отправлен запрос на сервер об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;button handler="shot"&gt;&lt;/button&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">onResponse</span>* - в данном атрибуте указывается куда придёт ответ от сервера об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;button handler="shot" onResponse="$('#resp-btn').text(x);"&gt;&lt;/button&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">clickable</span> - данный атрибут указывает на то, что запрос на сервер будет выполняться по клику на кнопку.
+                        </li>
+                        <p style="font-size: 14px;text-align: center;">*необязательный атрибут</p>
+                     </ul>
+                  </div>
                </div>
             </div>
          </div>
-      </div>
+      </section>
+      <section class="grey-bg">
+         <div class="container">
+            <div class="wrapper">
+               <div class="col-8">
+                  <div class="item">
+                     <h2>CHECKBOX</h2>
+                     <div class="line"></div>
+                     <p>Для использования чекбокса в своём проекте вам необходимо на своей странице разместить тег <span class="tag">&lt;input type="checkbox"/&gt;</span> со следующими атрибутами:</p>
+                     <ul>
+                        <li>
+                           <span class="attr">handler</span> - в данном атрибуте указывается путь, по которому будет отправлен запрос на сервер об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;input type="checkbox" handler="power"/&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">onResponse</span>* - в данном атрибуте указывается куда придёт ответ от сервера об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;input type="checkbox" handler="power" onResponse="$('#resp-check').text(x);"/&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">clickable</span> - данный атрибут указывает на то, что запрос на сервер будет выполняться по клику.
+                        </li>
+                     </ul>
+                     <p style="font-size: 14px;text-align: center;">*необязательный атрибут</p>
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="item">
+                     <h2>ПИТАНИЕ</h2>
+                     <input type="checkbox" id="myCheck" handler="power" onResponse="$('#resp-check').text(x);" clickable />
+                     <label for="myCheck" class="embedded-check"></label>
+                     <div class="response"><span id="resp-check"></span></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section>
+         <div class="container">
+            <div class="wrapper">
+               <div class="col-4">
+                  <div class="item">
+                     <h2>ПАРОЛЬ ДОСТУПА</h2>
+                     <input class="embedded-text" handler = 'password' onResponse="$('#resp-text').text(x);" type="text" changeable>
+                     <div class="response"><span id="resp-text"></span></div>
+                  </div>
+               </div>
+               <div class="col-8">
+                  <div class="item">
+                     <h2>TEXT EDITOR</h2>
+                     <div class="line"></div>
+                     <p>Для использования текстового поля в своём проекте вам необходимо на своей странице разместить тег <span class="tag">&lt;input type="text"/&gt;</span> со следующими атрибутами:</p>
+                     <ul>
+                        <li>
+                           <span class="attr">handler</span> - в данном атрибуте указывается путь, по которому будет отправлен запрос на сервер об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;input type="text" handler="password"/&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">onResponse</span>* - в данном атрибуте указывается куда придёт ответ от сервера об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;input type="text" handler="password" onResponse="$('#resp-text').text(x);"/&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">changeable</span> - данный атрибут указывает на то, что запрос на сервер будет выполняться по изменению его значения.
+                        </li>
+                     </ul>
+                     <p style="font-size: 14px;text-align: center;">*необязательный атрибут</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section class="grey-bg">
+         <div class="container">
+            <div class="wrapper">
+               <div class="col-8">
+                  <div class="item">
+                     <h2>SLIDER</h2>
+                     <div class="line"></div>
+                     <p>Для использования ползунка в своём проекте вам необходимо на своей странице разместить тег <span class="tag">&lt;input type="range"/&gt;</span> со следующими атрибутами:</p>
+                     <ul>
+                        <li>
+                           <span class="attr">min</span> - в данном атрибуте указывается минимальное значение ползунка.
+                        </li>
+                        <li>
+                           <span class="attr">max</span> - в данном атрибуте указывается максимальное значение ползунка.
+                        </li>
+                        <li>
+                           <span class="attr">value</span>* - в данном атрибуте указывается текущее значение ползунка.
+                        </li>
+                        <li>
+                           <span class="attr">step</span> - в данном атрибуте указывается с каким шагом будет изменяться значение ползунка.
+                        </li>
+                        <li>
+                           <span class="attr">handler</span> - в данном атрибуте указывается путь, по которому будет отправлен запрос на сервер об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;input type="range" min="12" max="18" step="1" value="" handler="temperature"/&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">onResponse</span>* - в данном атрибуте указывается куда придёт ответ от сервера об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;input type="range" min="12" max="18" step="1" value="" handler="temperature" onResponse="$('#resp-slider').text(x);"/&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">changeable</span> - данный атрибут указывает на то, что запрос на сервер будет выполняться по изменению его значения.
+                        </li>
+                     </ul>
+                     <p style="font-size: 14px;text-align: center;">*необязательный атрибут</p>
+                  </div>
+               </div>
+               <div class="col-4">
+                  <div class="item">
+                     <h2>ТЕМПЕРАТУРА ВОДЫ</h2>
+                     <input class="embedded-range" handler = 'temperature' type="range" min="12" max="18" step="1" value="" onResponse="$('#resp-range').text(x);" changeable>
+                     <div class="response"><span id="resp-range">  </span> <span> </span></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <section>
+         <div class="container">
+            <div class="wrapper">
+               <div class="col-4">
+                  <div class="item">
+                     <h2>ВЫБОР РАСТЕНИЙ ДЛЯ ПОЛИВА</h2>
+                     <select class="embedded-select" handler = 'plant' onResponse="$('#resp-select').text(x);" changeable>
+                        <option>Не выбрано</option>
+                        <option>Цветы</option>
+                        <option>Овощи</option>
+                        <option>Фрукты</option>
+                     </select>
+                     <div class="response"><span id="resp-select"></span></div>
+                  </div>
+               </div>
+               <div class="col-8">
+                  <div class="item">
+                     <h2>SELECT</h2>
+                     <div class="line"></div>
+                     <p>Для использования селекта в своём проекте вам необходимо на своей странице разместить тег <span class="tag">&lt;select&gt;</span>, внутри которого должны быть теги <span class="tag">&lt;option&gt;</span>, со следующими атрибутами:</p>
+                     <ul>
+                        <li>
+                           <span class="attr">handler</span> - в данном атрибуте указывается путь, по которому будет отправлен запрос на сервер об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;select handler = "plant"&gt;<br>
+                              &lt;option&gt;Не выбрано&lt;/option&gt;<br>
+                              &lt;option&gt;Цветы&lt;/option&gt;<br>
+                              &lt;option&gt;Овощи&lt;/option&gt;<br>
+                              &lt;option&gt;Фрукты&lt;/option&gt;<br>
+                              &lt;/select&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">onResponse</span>* - в данном атрибуте указывается куда придёт ответ от сервера об выполнении какой-либо функции. Например:
+                           <span class="example">&lt;select handler = "plant" onResponse="$('#resp-select').text(x);"&gt;<br>
+                              &lt;option&gt;Не выбрано&lt;/option&gt;<br>
+                              &lt;option&gt;Цветы&lt;/option&gt;<br>
+                              &lt;option&gt;Овощи&lt;/option&gt;<br>
+                              &lt;option&gt;Фрукты&lt;/option&gt;<br>
+                              &lt;/select&gt;</span>
+                        </li>
+                        <li>
+                           <span class="attr">changeable</span> - данный атрибут указывает на то, что запрос на сервер будет выполняться по изменению его значения.
+                        </li>
+                     </ul>
+                     <p style="font-size: 14px;text-align: center;">*необязательный атрибут</p>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+      <footer>
+      </footer>
       <script src="http://yandex.st/jquery/2.2.3/jquery.min.js" type="text/javascript"></script>
-      <script src="scripts.js" type="text/javascript"></script>
+      <script src="embedded.js" type="text/javascript"></script>
    </body>
 </html>

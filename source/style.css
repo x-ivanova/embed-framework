@@ -1,6 +1,10 @@
 :focus {
     outline: none;
 }
+body {
+    margin: 0px;
+}
+/* demonstration */
 .wrapper {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -11,12 +15,19 @@
     margin-left: -15px;
 }
 
+.header-section, footer {
+     background-color: #233e55;
+     color: #fff;
+     padding: 20px;
+ }
+
+
 .container {
     max-width: 1200px;
     margin: auto;
 }
 
-.col-2 {
+.col-4 {
     position: relative;
     width: 100%;
     min-height: 1px;
@@ -24,19 +35,86 @@
     padding-left: 15px;
     -webkit-box-flex: 0;
     -ms-flex: 0 0 50%;
-    flex: 0 0 50%;
+    flex: 0 0 33.3333%;
+    box-sizing: border-box;
+}
+.col-8 {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 50%;
+    flex: 0 0 66.3333%;
     box-sizing: border-box;
 }
 
 .item {
-    background-color: #f7f5f2;
     padding: 40px 20px;
     min-height: 150px;
     margin: 10px 0;
     text-align: center;
-    border-radius: 15px;
 }
 
+h2, .item input[type="checkbox"], .item input[type="text"], .item input[type="range"], .item select {
+    margin: 0 0 10px 0;
+}
+
+.line {
+    width: 80px;
+    height: 4px;
+    background: #f44;
+    margin: 0px auto 10px;
+}
+
+.grey-bg {
+    background: #d9e1e6 url(http://www.top-7.ru/wp-content/themes/top7/img/bg_row1.png);
+}
+section {
+    padding: 40px 20px;
+}
+.response {
+    font-size: 18px;
+    padding: 45px 20px;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+.response span {
+    font-style: italic;
+    font-weight: bold;
+}
+ul{
+    list-style: none;
+    text-align: left;
+    padding: 0;
+}
+ul > li{
+    padding-left: 20px;
+    position: relative;
+    margin: 10px;
+}
+ul > li:before{
+    content: '✔';
+    position: absolute; top: 0; left: 0;
+    color: #f44;
+}
+
+span.attr {
+    color: #f74242;
+    font-weight: bold;
+}
+
+span.example {
+    display: block;
+    padding: 15px;
+    border: 1px dotted #f74242;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+/* button */
 button{
     border: none;
     cursor: pointer;
@@ -58,25 +136,25 @@ button{
 
 .embedded-btn:active {
     border-bottom-width: 2px;
-    margin: 4px 0 0;
     background: #e33;
     box-shadow: -8px -16px 32px -16px rgba(255,255,255,0.1) inset, 8px 16px 32px -16px rgba(0,0,0,0.1) inset;
+    margin: 4px 0 0;
 }
 
-.response {
+p {
     font-size: 18px;
-    padding: 15px 0;
 }
-
-.response span {
-    font-style: italic;
+span.tag {
+    background-color: #00000012;
     font-weight: bold;
+    padding: 2px;
 }
+/* /button */
 
 
-/* check box
 
-/* Checkmark style starts */
+/* check box */
+
 @-moz-keyframes dothabottomcheck {
   0% {
     height: 0;
@@ -229,13 +307,12 @@ input.embedded-text {
     border: 3px solid transparent;
 }
 
-input.config.embedded-text:focus {
+input.embedded-text:focus {
     border: 3px solid #f74242;
 }
 
 /* slider */
-/* Стиль кнопки листалки */
-input[type=range] {
+input[type="range"].embedded-range {
     -webkit-appearance: none;
     max-width: 100%;
     margin: 0px;
@@ -244,7 +321,7 @@ input[type=range] {
     border: none;
     height: auto;
 }
-input[type=range]::-webkit-slider-runnable-track {
+input[type="range"].embedded-range::-webkit-slider-runnable-track {
     max-width: 100%;
     height: 7px;
     border:none;
@@ -253,7 +330,7 @@ input[type=range]::-webkit-slider-runnable-track {
     background-color: #33333342;
     border-radius: 5px;
 }
-input[type=range]::-webkit-slider-thumb {
+input[type="range"].embedded-range::-webkit-slider-thumb {
     -webkit-appearance: none;
     border: none;
     height: 24px;
@@ -263,7 +340,7 @@ input[type=range]::-webkit-slider-thumb {
     margin-top: -10px;
 }
 
-input[type=range]::-moz-range-track {
+input[type="range"].embedded-range::-moz-range-track {
     max-width: 100%;
     height: 7px;
     border:none;
@@ -272,7 +349,7 @@ input[type=range]::-moz-range-track {
     background-color: #33333342;
     border-radius: 5px;
 }
-input[type=range]::-moz-range-thumb {
+input[type="range"].embedded-range::-moz-range-thumb {
     -webkit-appearance: none;
     border: none;
     height: 24px;
@@ -282,7 +359,7 @@ input[type=range]::-moz-range-thumb {
     margin-top: -10px;
 }
 
-input[type=range]::-ms-track {
+input[type="range"].embedded-range::-ms-track {
     -webkit-appearance: none;
     border: none;
     height: 24px;
@@ -292,10 +369,18 @@ input[type=range]::-ms-track {
     margin-top: -10px;
     color: transparent;
 }
-input[type=range]::-ms-thumb {
+input[type="range"].embedded-range::-ms-thumb {
     border: none;
     height: 16px;
     width: 16px;
     border-radius: 50%;
     background: goldenrod;
+}
+
+/*  select */
+select.embedded-select {
+    font-size: 20px;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
 }
